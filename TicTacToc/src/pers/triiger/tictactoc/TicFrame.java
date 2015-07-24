@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.URL;
 
 /**
  * 程序主界面
@@ -39,16 +40,15 @@ public class TicFrame extends JFrame {
 
 
 
-    public static final String BACKGROUND_IMG = "img/background.jpg";
-    public static final String CHESSBOARD_IMG = "img/TicTacToc.jpg";
-    public static final String CHESS_O = "img/o.png";
-    public static final String CHESS_X = "img/x.png";
-    public static final String O_WIN_IMG = "img/0Win.png";
-    public static final String X_WIN_IMG = "img/xWin.png";
-    public static final String TIE_IMG = "img/tie.png";
-    public static final String FLAG_IMG_O = "img/flag1.png";
-    public static final String FLAG_IMG_X = "img/flag2.png";
-    public static final String SHOWMODE_IMG = "img/show.png";
+    public static final String BACKGROUND_IMG = "/background.jpg";
+    public static final String CHESS_O = "/o.png";
+    public static final String CHESS_X = "/x.png";
+    public static final String O_WIN_IMG = "/0Win.png";
+    public static final String X_WIN_IMG = "/XWin.png";
+    public static final String TIE_IMG = "/tie.png";
+    public static final String FLAG_IMG_O = "/flag1.png";
+    public static final String FLAG_IMG_X = "/flag2.png";
+    public static final String SHOWMODE_IMG = "/show.png";
 
     private ChessBoardPanel chessBoardPanel = null;
     private JLabel background = null;
@@ -129,7 +129,8 @@ public class TicFrame extends JFrame {
      */
     private JLabel getBackround(){
         if(this.background == null){
-            ImageIcon imageIcon = new ImageIcon(BACKGROUND_IMG);
+            URL backgroundUrl = TicFrame.class.getResource(BACKGROUND_IMG);
+            ImageIcon imageIcon = new ImageIcon(backgroundUrl);
             background = new JLabel(imageIcon);
             background.setBounds(0, 0, WIDTH, HEIGHT);
         }
@@ -222,7 +223,7 @@ public class TicFrame extends JFrame {
                             aiChess.initAI();
                             flagL.repaint();
                             flagR.repaint();
-                            if(!ticService.isO()){
+                            if(!ticService.isO() && ticService.getMode() == 2){
                                 ClickPoint p = aiChess.aiFirstRun(ticService.getChesses());
                                 ticService.updateChessBoard(p);
                             }

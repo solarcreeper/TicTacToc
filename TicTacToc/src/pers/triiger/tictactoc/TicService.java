@@ -1,10 +1,12 @@
 package pers.triiger.tictactoc;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * 程序逻辑处理
@@ -96,19 +98,37 @@ public class TicService {
         this.isStoped = true;
         //初始化步数
         this.count = 0;
-        //初始棋子图片
-        try{
-            chessO = ImageIO.read(new File(TicFrame.CHESS_O));
-            chessX = ImageIO.read(new File(TicFrame.CHESS_X));
-            oWin   = ImageIO.read(new File(TicFrame.O_WIN_IMG));
-            xWin   = ImageIO.read(new File(TicFrame.X_WIN_IMG));
-            tie    = ImageIO.read(new File(TicFrame.TIE_IMG));
-            flag1  = ImageIO.read(new File(TicFrame.FLAG_IMG_O));
-            flag2  = ImageIO.read(new File(TicFrame.FLAG_IMG_X));
-            showMode = ImageIO.read(new File(TicFrame.SHOWMODE_IMG));
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+
+        //初始资源图片
+        URL url = null;
+        ImageIcon icon = null;
+
+        url = TicFrame.class.getResource(TicFrame.CHESS_O);
+        icon = new ImageIcon(url);
+        chessO = icon.getImage();
+        url = TicFrame.class.getResource(TicFrame.CHESS_X);
+        icon = new ImageIcon(url);
+        chessX = icon.getImage();
+        url = TicFrame.class.getResource(TicFrame.O_WIN_IMG);
+        icon = new ImageIcon(url);
+        oWin   = icon.getImage();
+        url = TicFrame.class.getResource(TicFrame.X_WIN_IMG);
+        icon = new ImageIcon(url);
+        xWin   = icon.getImage();
+        url = TicFrame.class.getResource(TicFrame.TIE_IMG);
+        icon = new ImageIcon(url);
+        tie    = icon.getImage();
+        url = TicFrame.class.getResource(TicFrame.FLAG_IMG_O);
+        icon = new ImageIcon(url);
+        flag1  = icon.getImage();
+        url = TicFrame.class.getResource(TicFrame.FLAG_IMG_X);
+        icon = new ImageIcon(url);
+        flag2  = icon.getImage();
+        url = TicFrame.class.getResource(TicFrame.SHOWMODE_IMG);
+        icon = new ImageIcon(url);
+        showMode = icon.getImage();
+
+        //初始化棋子
         this.chesses = new Chess[3][3];
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
@@ -356,16 +376,17 @@ public class TicService {
     public void paintO(Graphics g){
         int a = scoresO/10;
         int b = scoresO%10;
-        String strA = "img/" + a + ".png";
-        String strB = "img/" + b + ".png";
+        String strA = "/" + a + ".png";
+        String strB = "/" + b + ".png";
         Image imgA = null;
         Image imgB = null;
-        try{
-            imgA = ImageIO.read(new File(strA));
-            imgB = ImageIO.read(new File(strB));
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+        //使用URL,编译jar时资源不会出错
+        URL url = TicFrame.class.getResource(strA);
+        ImageIcon icon = new ImageIcon(url);
+        imgA = icon.getImage();
+        url = TicFrame.class.getResource(strB);
+        icon = new ImageIcon(url);
+        imgB = icon.getImage();
         g.drawImage(imgA, 0, 0, TicFrame.SCORESPANEL_WIDTH/2, TicFrame.SCORESPANEL_HEIGHT, null);
         g.drawImage(imgB, TicFrame.SCORESPANEL_WIDTH/2, 0, TicFrame.SCORESPANEL_WIDTH/2, TicFrame.SCORESPANEL_HEIGHT, null);
     }
@@ -378,16 +399,17 @@ public class TicService {
     public void paintX(Graphics g){
         int a = scoresX/10;
         int b = scoresX%10;
-        String strA = "img/" + a + ".png";
-        String strB = "img/" + b + ".png";
+        String strA = "/" + a + ".png";
+        String strB = "/" + b + ".png";
         Image imgA = null;
         Image imgB = null;
-        try{
-            imgA = ImageIO.read(new File(strA));
-            imgB = ImageIO.read(new File(strB));
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+        //使用URL,编译jar时资源不会出错
+        URL url = TicFrame.class.getResource(strA);
+        ImageIcon icon = new ImageIcon(url);
+        imgA = icon.getImage();
+        url = TicFrame.class.getResource(strB);
+        icon = new ImageIcon(url);
+        imgB = icon.getImage();
         g.drawImage(imgA, 0, 0, TicFrame.SCORESPANEL_WIDTH/2, TicFrame.SCORESPANEL_HEIGHT, null);
         g.drawImage(imgB, TicFrame.SCORESPANEL_WIDTH/2, 0, TicFrame.SCORESPANEL_WIDTH/2, TicFrame.SCORESPANEL_HEIGHT, null);
     }
